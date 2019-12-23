@@ -49,8 +49,8 @@ router.get('/', (req, res) => {
 });
 
 router.post('/:username/:id', async (req, res) => {
-  //let str_data = req.body;
-  let str_data = Object.assign({}, querystring.parse(req.body));
+  let str_data = req.body;
+  //let str_data = Object.assign({}, querystring.parse(req.body));
   console.log(`Data: ${JSON.stringify(str_data)}`);
   let fields = str_data;
   let air_data = Object.assign({fields});
