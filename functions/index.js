@@ -110,7 +110,7 @@ const captchaId = getValueByKey(str_data, 'g-recaptcha-response');
         });
         }
         
-        const airtable = new Airtable({ apiKey: result.Forms.apiKey })
+        const airtable = new Airtable({ apiKey: result.Forms.apikey })
           .base(result.Forms.base)
           .table(result.Forms.table)
         //checks if the form is enable to receive data submissions
