@@ -9,6 +9,7 @@ const {getUserQuery, getFormQuery, saveFormDataMutation} = require('../gql.js');
 const Lokka = require("lokka").Lokka;
 const Transport = require("lokka-transport-http").Transport;
 const Airtable = require('airtable-node');
+const querystring = require('querystring');
 //const proxy = require('http-proxy-middleware');
 
 // defining the Express app
@@ -48,9 +49,9 @@ router.get('/', (req, res) => {
 });
 
 router.post('/:username/:id', async (req, res) => {
-  let str_data = JSON.parse(req.body);
+  //let str_data = req.body;
+  let str_data = Object.assign({}, querystring.parse(req.body));
   console.log(`Data: ${JSON.stringify(str_data)}`);
-  //let data = Object.assign({}, querystring.parse(req.body));
   let fields = str_data;
   let air_data = Object.assign({fields});
   const userName = req.params.username;
