@@ -1,6 +1,8 @@
 // importing the dependencies
 const express = require('express');
 const bodyParser = require('body-parser');
+const serverless = require('serverless-http');
+const path = require('path');
 const cors = require('cors');
 const helmet = require('helmet');
 const {getUserQuery, getFormQuery, saveFormDataMutation} = require('./gql.js');
@@ -10,6 +12,8 @@ const Airtable = require('airtable-node');
 
 // defining the Express app
 const app = express();
+
+const router = express.Router();
 
 // defining an array to work as the database (temporary solution)
 const ads = [
@@ -35,18 +39,14 @@ app.use(bodyParser.json());
 
 // enabling CORS for all requests
 app.use(cors());
+app.use('/.netlify/functions/index', router); 
 
 // defining an endpoint to return all ads
-app.get('/', (req, res) => {
+router.get('/', (req, res) => {
   res.send(ads);
 });
 
-// starting the server
-app.listen(3001, () => {
-  console.log('listening on port 3001');
-});
-
-app.post('/:username/:id', async (req, res) => {
+router.post('/:username/:id', async (req, res) => {
   let str_data = JSON.parse(event.body);
   let data = Object.assign({}, querystring.parse(req.body));
   let fields = data;
@@ -157,3 +157,5 @@ const captchaId = getValueByKey(data, 'g-recaptcha-response');
 /*app.get('/:username/:id', async (req, res) => {
   res.send('Just a test');
 });*/
+module.exports = app;
+module.exports.handler = serverless(app);
