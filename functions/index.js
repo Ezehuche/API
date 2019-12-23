@@ -72,10 +72,11 @@ router.post('/:username/:id', async (req, res) => {
 
 //const email = getValueByKey(data, 'Email');
 const id = getValueByKey(str_data, 'userCode');
+console.log(`User Code: ${id}`);
 //const AirtableRecord = getValueByKey(data, 'AirtableRecord');
 const captchaId = getValueByKey(str_data, 'g-recaptcha-response');
 
-  if (id !== undefined) {
+  //if (id !== undefined) {
 
     const getUserQueryVars = { userName };
     client
@@ -133,6 +134,7 @@ const captchaId = getValueByKey(str_data, 'g-recaptcha-response');
         client.query(getFormDataMutation, getFormDataMutationVars).then(result => {
             const id = result.Content.record
             airtable.retrieve(id).then(resp => {
+              console.log(`Records: ${JSON.stringify({resp})}`);
               return res.json(resp);
             }).catch(e => {
               //sends a error if the data was not saved in the DB
@@ -153,7 +155,7 @@ const captchaId = getValueByKey(str_data, 'g-recaptcha-response');
   .catch(e => {
     return res.status(500).json({error: e});
   });
-  }
+  //}
 });
 
 /*app.get('/:username/:id', async (req, res) => {
