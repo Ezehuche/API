@@ -9,6 +9,7 @@ const {getUserQuery, getFormQuery, saveFormDataMutation} = require('../gql.js');
 const Lokka = require("lokka").Lokka;
 const Transport = require("lokka-transport-http").Transport;
 const Airtable = require('airtable-node');
+//const proxy = require('http-proxy-middleware');
 
 // defining the Express app
 const app = express();
@@ -39,7 +40,7 @@ app.use(bodyParser.json());
 
 // enabling CORS for all requests
 app.use(cors());
-app.use('/.netlify/functions/index', router); 
+app.use('/.netlify/functions/index', router);
 
 // defining an endpoint to return all ads
 router.get('/', (req, res) => {
@@ -47,7 +48,8 @@ router.get('/', (req, res) => {
 });
 
 router.post('/:username/:id', async (req, res) => {
-  let str_data = JSON.parse(event.body);
+  let str_data = JSON.parse(req.body);
+  console.log(`Data: ${JSON.stringify(str_data)}`);
   let data = Object.assign({}, querystring.parse(req.body));
   let fields = data;
   let air_data = Object.assign({fields});
