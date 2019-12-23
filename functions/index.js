@@ -50,13 +50,13 @@ router.get('/', (req, res) => {
 router.post('/:username/:id', async (req, res) => {
   let str_data = JSON.parse(req.body);
   console.log(`Data: ${JSON.stringify(str_data)}`);
-  let data = Object.assign({}, querystring.parse(req.body));
-  let fields = data;
+  //let data = Object.assign({}, querystring.parse(req.body));
+  let fields = str_data;
   let air_data = Object.assign({fields});
   const userName = req.params.username;
   const getEndpoint = req.params.id;
   //checks and validates the parameters and the data
-  if (!userName || !getEndpoint || !Object.keys(data).length) {
+  if (!userName || !getEndpoint || !Object.keys(str_data).length) {
     console.error("Validation Failed");
     return res.status(500).send({error: 'Could not execute, missing fields...'});
   }
@@ -70,10 +70,10 @@ router.post('/:username/:id', async (req, res) => {
   } 
 } 
 
-const email = getValueByKey(data, 'Email');
+//const email = getValueByKey(data, 'Email');
 const id = getValueByKey(str_data, 'userCode');
-const AirtableRecord = getValueByKey(data, 'AirtableRecord');
-const captchaId = getValueByKey(data, 'g-recaptcha-response');
+//const AirtableRecord = getValueByKey(data, 'AirtableRecord');
+const captchaId = getValueByKey(str_data, 'g-recaptcha-response');
 
   if (id !== undefined) {
 
