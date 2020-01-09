@@ -115,6 +115,7 @@ const captchaId = getValueByKey(str_data, 'g-recaptcha-response');
           .base(result.Forms.base)
           .table(result.Forms.table)
         //checks if the form is enable to receive data submissions
+        console.log(`API Key: ${apikey}, Base: ${result.Forms.base}, Table: ${result.Forms.table}`);
         if (isDisabled) {
           return res.status(500).send({error: 'At this moment the form is not accepting submissions.'});
         }
