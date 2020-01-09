@@ -2,6 +2,7 @@ const getUserQuery = `
   query getUser($userName: String!) {
     User(userName: $userName){
       id
+      apikey
     }
   }
 `;
@@ -10,7 +11,6 @@ const getFormQuery = `
     query getForm($setEndpoint: String!) {
       Forms(endpoint: $setEndpoint) {
         id
-        apikey
         isDisabled
         redirect
         base
