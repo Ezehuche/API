@@ -83,6 +83,7 @@ const captchaId = getValueByKey(str_data, 'g-recaptcha-response');
       .query(getUserQuery, getUserQueryVars)
       .then(result => {
       const userId = result.User.id;
+      const apikey = result.User.apikey;
       const setEndpoint = `${userId}/${getEndpoint}`;
 
     const getFormQueryVars = { setEndpoint };
@@ -110,7 +111,7 @@ const captchaId = getValueByKey(str_data, 'g-recaptcha-response');
         });
         }
         
-        const airtable = new Airtable({ apiKey: result.Forms.apikey })
+        const airtable = new Airtable({ apiKey: apikey })
           .base(result.Forms.base)
           .table(result.Forms.table)
         //checks if the form is enable to receive data submissions
